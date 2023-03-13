@@ -3,6 +3,8 @@ import { TextField, Button, Container, Alert } from '@mui/material';
 import * as Yup from 'yup';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { getProductByTtn } from 'redux/product/product-operation';
+import { getProductTTN } from 'redux/product/product-selector';
 
 const schema = Yup.object().shape({
   ttn: Yup.string()
@@ -17,9 +19,12 @@ const initialValues = {
 
 export default function SearchForm() {
   const dispatch = useDispatch();
+  const getItems = useSelector(getProductTTN);
+  console.log(getItems);
 
   const handleSubmit = (values, { resetForm }) => {
-    console.log('I am Form', values);
+    console.log(values);
+    dispatch(getProductByTtn(values.ttn));
   };
 
   return (
@@ -43,7 +48,7 @@ export default function SearchForm() {
             <Field name="ttn">
               {({ field, meta }) => (
                 <TextField
-                  label="ТТН"
+                  label="TTN"
                   {...field}
                   error={meta.touched && Boolean(meta.error)}
                   helperText={

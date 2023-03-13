@@ -4,7 +4,7 @@ export const backend = axios.create({
   baseURL: 'https://api.novaposhta.ua/v2.0/json/',
 });
 
-export const getProductInfo = async () => {
+export const getProductInfo = async ttn => {
   const options = {
     apiKey: 'cf9c8c5c2dde5d5de16afa57c07f933d',
     modelName: 'TrackingDocument',
@@ -12,7 +12,7 @@ export const getProductInfo = async () => {
     methodProperties: {
       Documents: [
         {
-          DocumentNumber: '20400048799000',
+          DocumentNumber: `${ttn}`,
         },
       ],
     },

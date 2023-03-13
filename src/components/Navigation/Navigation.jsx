@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import {
@@ -13,10 +14,15 @@ import {
   Button,
   MenuItem,
   Tooltip,
+  Badge,
 } from '@mui/material';
 
 import EmailIcon from '@mui/icons-material/Email';
 import MenuIcon from '@mui/icons-material/Menu';
+import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
+import DrawerEl from 'components/Drawer/DrawerEl';
+import { getNumOfTTN } from 'redux/product/product-selector';
+import { useSelector } from 'react-redux';
 
 const pages = [
   { name: 'Home', link: '/' },
@@ -24,14 +30,17 @@ const pages = [
 ];
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [drawOpen, setDrawOpen] = useState(false);
+
+  const numOfTtn = useSelector(getNumOfTTN);
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = event => {
-    setAnchorElUser(event.currentTarget);
+  const handleOpenUserMenu = () => {
+    setDrawOpen(true);
   };
 
   const handleCloseNavMenu = () => {
@@ -118,12 +127,13 @@ function ResponsiveAppBar() {
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
+              fontSize: '18px',
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            NOVA POSHTA
+            NOVAPOSHTA
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map(page => (
@@ -142,7 +152,9 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Badge color="primary" badgeContent={numOfTtn.length}>
+                  <HistoryToggleOffIcon fontSize="large" htmlColor="white" />
+                </Badge>
               </IconButton>
             </Tooltip>
             <Menu
@@ -176,6 +188,13 @@ function ResponsiveAppBar() {
           </Box>
         </Toolbar>
       </Container>
+      <DrawerEl
+        numOfTtn={numOfTtn}
+        drawOpen={drawOpen}
+        closeDraw={() => {
+          setDrawOpen(false);
+        }}
+      />
     </AppBar>
   );
 }
