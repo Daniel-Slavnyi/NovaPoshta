@@ -13,7 +13,6 @@ export const getProductInfo = async () => {
       Documents: [
         {
           DocumentNumber: '20400048799000',
-          Phone: '380600000000',
         },
       ],
     },
@@ -33,7 +32,7 @@ export const getOficeInfo = async () => {
     modelName: 'Address',
     calledMethod: 'getWarehouses',
     methodProperties: {
-      CityName: 'київ',
+      CityName: 'запоріжжя',
       Limit: '20',
       Page: '1',
       Language: 'UA',
