@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductByTtn } from 'redux/product/product-operation';
 import { getProductTTN } from 'redux/product/product-selector';
+import { addToStory } from 'redux/product/product-slice';
 
 const schema = Yup.object().shape({
   ttn: Yup.string()
@@ -25,6 +26,7 @@ export default function SearchForm() {
   const handleSubmit = (values, { resetForm }) => {
     console.log(values);
     dispatch(getProductByTtn(values.ttn));
+    dispatch(addToStory(values.ttn));
   };
 
   return (

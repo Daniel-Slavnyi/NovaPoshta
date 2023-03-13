@@ -9,6 +9,18 @@ const productSlice = createSlice({
     error: null,
     isLoading: null,
   },
+  reducers: {
+    addToStory(state, action) {
+      if (state.numOfTtn.some(item => item === action.payload)) {
+        return alert(`${action.payload} is already in your history`);
+      }
+
+      state.numOfTtn = [action.payload, ...state.numOfTtn];
+    },
+    deleteUser(state, action) {
+      state.numOfTtn = state.numOfTtn.filter(obj => obj !== action.payload);
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getProductByTtn.pending, state => {
@@ -17,7 +29,6 @@ const productSlice = createSlice({
       })
       .addCase(getProductByTtn.fulfilled, (state, action) => {
         state.item = action.payload.data[0];
-        state.numOfTtn = [action.payload.data[0].Number, ...state.numOfTtn];
         state.isLoading = false;
       })
       .addCase(getProductByTtn.rejected, (state, action) => {
@@ -25,5 +36,7 @@ const productSlice = createSlice({
       });
   },
 });
+const { actions } = productSlice;
 
+export const { addToStory, deleteUser } = actions;
 export const productReducer = productSlice.reducer;

@@ -11,10 +11,13 @@ import {
 } from '@mui/material';
 import HistoryEduSharpIcon from '@mui/icons-material/HistoryEduSharp';
 import RestoreFromTrashSharpIcon from '@mui/icons-material/RestoreFromTrashSharp';
+import { useDispatch } from 'react-redux';
+import { deleteUser } from 'redux/product/product-slice';
 
 export default function DrawerEl({ drawOpen, closeDraw, numOfTtn }) {
-  const handleClick = () => {
-    console.log('hello');
+  const dispatch = useDispatch();
+  const handleClick = ttn => {
+    dispatch(deleteUser(ttn));
   };
 
   return (
@@ -34,7 +37,11 @@ export default function DrawerEl({ drawOpen, closeDraw, numOfTtn }) {
             numOfTtn.map(item => (
               <Box key={item} sx={{ display: 'flex' }}>
                 <ListItem>{item}</ListItem>
-                <IconButton onClick={handleClick}>
+                <IconButton
+                  onClick={() => {
+                    handleClick(item);
+                  }}
+                >
                   <RestoreFromTrashSharpIcon />
                 </IconButton>
               </Box>
