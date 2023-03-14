@@ -1,11 +1,12 @@
-import { Formik, Form, Field } from 'formik';
-import { TextField, Button, Container, Alert } from '@mui/material';
+import { Formik, Form, Field, useFormikContext } from 'formik';
+import { TextField, Button, Container } from '@mui/material';
 import * as Yup from 'yup';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductByTtn } from 'redux/product/product-operation';
 import { getProductTTN } from 'redux/product/product-selector';
 import { addToStory } from 'redux/product/product-slice';
+import { useEffect, useState } from 'react';
 
 const schema = Yup.object().shape({
   ttn: Yup.string()
@@ -14,25 +15,22 @@ const schema = Yup.object().shape({
     .required(),
 });
 
-const initialValues = {
-  ttn: '',
-};
+export default function SearchForm({ getItems }) {
+  console.log('1', getItems.number);
 
-export default function SearchForm() {
   const dispatch = useDispatch();
-  const getItems = useSelector(getProductTTN);
-  console.log(getItems);
 
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values);
     dispatch(getProductByTtn(values.ttn));
     dispatch(addToStory(values.ttn));
   };
 
+  console.log('2', getItems.number);
+
   return (
     <Container>
       <Formik
-        initialValues={initialValues}
+        initialValues={{ ttn: '' }}
         onSubmit={handleSubmit}
         validationSchema={schema}
         validateOnChange={true}
@@ -47,6 +45,7 @@ export default function SearchForm() {
             }}
             onSubmit={handleSubmit}
           >
+            <p>{getItems.Number}</p>
             <Field name="ttn">
               {({ field, meta }) => (
                 <TextField

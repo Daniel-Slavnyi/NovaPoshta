@@ -5,20 +5,24 @@ const productSlice = createSlice({
   name: 'product',
   initialState: {
     item: [],
-    numOfTtn: [],
+    numOfTtns: [],
+    numOfTtn: '',
     error: null,
     isLoading: null,
   },
   reducers: {
     addToStory(state, action) {
-      if (state.numOfTtn.some(item => item === action.payload)) {
+      if (state.numOfTtns.some(item => item === action.payload)) {
         return alert(`${action.payload} is already in your history`);
       }
 
-      state.numOfTtn = [action.payload, ...state.numOfTtn];
+      state.numOfTtns = [action.payload, ...state.numOfTtns];
+    },
+    addNum(state, action) {
+      state.numOfTtn = action.payload;
     },
     deleteUser(state, action) {
-      state.numOfTtn = state.numOfTtn.filter(obj => obj !== action.payload);
+      state.numOfTtns = state.numOfTtns.filter(obj => obj !== action.payload);
     },
   },
   extraReducers: builder => {
@@ -38,5 +42,5 @@ const productSlice = createSlice({
 });
 const { actions } = productSlice;
 
-export const { addToStory, deleteUser } = actions;
+export const { addToStory, deleteUser, addNum } = actions;
 export const productReducer = productSlice.reducer;
