@@ -10,17 +10,17 @@ import {
   Typography,
   Menu,
   Container,
-  Avatar,
   Button,
   MenuItem,
   Tooltip,
   Badge,
 } from '@mui/material';
 
+import DrawerEl from 'components/Drawer/DrawerEl';
+
 import EmailIcon from '@mui/icons-material/Email';
 import MenuIcon from '@mui/icons-material/Menu';
 import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
-import DrawerEl from 'components/Drawer/DrawerEl';
 import { getNumOfTTN } from 'redux/product/product-selector';
 import { useSelector } from 'react-redux';
 
