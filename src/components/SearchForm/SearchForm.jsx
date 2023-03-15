@@ -19,7 +19,7 @@ export default function SearchForm() {
       ttn: Yup.string()
         .matches(/^\d+$/, 'ТТН може містити тільки цифри')
         .length(14, 'ТТН має містити рівно 14 цифр')
-        .required(),
+        .required('ТТН має містити номер'),
     }),
     onSubmit: value => {
       dispatch(getProductByTtn(value.ttn));
