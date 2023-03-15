@@ -1,6 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getProductByTtn } from './product-operation';
 
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
+
+const persistConfig = {
+  key: 'ttn',
+  whitelist: ['numOfTtns'],
+  storage,
+};
+
 const productSlice = createSlice({
   name: 'product',
   initialState: {
@@ -43,4 +52,8 @@ const productSlice = createSlice({
 const { actions } = productSlice;
 
 export const { addToStory, deleteUser, addNum } = actions;
-export const productReducer = productSlice.reducer;
+
+export const productReducer = persistReducer(
+  persistConfig,
+  productSlice.reducer
+);
