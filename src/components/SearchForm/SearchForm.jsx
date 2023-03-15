@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, TextField } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 import { getProductByTtn } from 'redux/product/product-operation';
 import { addToStory } from 'redux/product/product-slice';
 import { getProductTTN } from 'redux/product/product-selector';
@@ -31,9 +31,9 @@ export default function SearchForm() {
     if (!getItems.Number) {
       return;
     }
-    console.log('hihihi', getItems.Number);
-    formik.setFieldValue('ttn', getItems.Number);
-    formik.setValues({ ttn: getItems.Number });
+
+    formik.setFieldValue('ttn', getItems?.Number);
+    formik.setValues({ ttn: getItems?.Number });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getItems.Number]);

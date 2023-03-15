@@ -9,15 +9,15 @@ export default function CardOfProduct() {
     <Card sx={{ mt: 3 }}>
       <CardContent>
         <Typography sx={{ mt: 3 }}>
-          Delivery status: {productByTtn.Status}
+          Delivery status: {productByTtn?.Status}
         </Typography>
         <Divider />
         <Typography sx={{ mt: 3 }}>
-          Sender: {productByTtn.WarehouseSender}
+          Sender: {productByTtn?.WarehouseSender}
         </Typography>
         <Divider />
         <Typography sx={{ mt: 3 }}>
-          Recipient: {productByTtn.WarehouseRecipient}
+          Recipient: {productByTtn?.WarehouseRecipient}
         </Typography>
         <Divider />
       </CardContent>
