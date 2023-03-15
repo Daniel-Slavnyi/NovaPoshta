@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import Drawer from '@mui/material/Drawer';
+
 import {
   Box,
   Button,
@@ -10,14 +10,18 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Drawer,
 } from '@mui/material';
+
 import HistoryEduSharpIcon from '@mui/icons-material/HistoryEduSharp';
 import RestoreFromTrashSharpIcon from '@mui/icons-material/RestoreFromTrashSharp';
+
 import { deleteUser, addNum } from 'redux/product/product-slice';
 import { getProductByTtn } from 'redux/product/product-operation';
 
 export default function DrawerEl({ drawOpen, closeDraw, numOfTtn }) {
   const dispatch = useDispatch();
+
   const handleClick = ttn => {
     dispatch(deleteUser(ttn));
   };

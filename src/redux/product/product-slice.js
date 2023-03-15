@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getProductByTtn } from './product-operation';
 
+import { toast } from 'react-toastify';
+
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 
@@ -22,7 +24,8 @@ const productSlice = createSlice({
   reducers: {
     addToStory(state, action) {
       if (state.numOfTtns.some(item => item === action.payload)) {
-        return alert(`${action.payload} is already in your history`);
+        toast.warning('This TTN is already in your list');
+        return;
       }
 
       state.numOfTtns = [action.payload, ...state.numOfTtns];
@@ -45,7 +48,8 @@ const productSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getProductByTtn.rejected, (state, action) => {
-        state.error = action.payload;
+        state.error = 'Not correct the number';
+        state.isLoading = false;
       });
   },
 });
