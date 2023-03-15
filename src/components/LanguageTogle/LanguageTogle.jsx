@@ -1,7 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
-import { useTranslation } from 'react-i18next';
+import i18n from '../../services/i18next';
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
   width: 28,
@@ -48,8 +48,6 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export default function LanguageTogle() {
-  const { i18n } = useTranslation();
-
   const handleLenguage = e => {
     e.target.checked ? i18n.changeLanguage('ua') : i18n.changeLanguage('en');
   };
