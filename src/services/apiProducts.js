@@ -26,15 +26,35 @@ export const getProductInfo = async ttn => {
   }
 };
 
-export const getOficeInfo = async () => {
+export const getOficeInfo = async city => {
   const options = {
     apiKey: 'fcad54a446f54015e23edf4c93e5b3a4',
     modelName: 'Address',
     calledMethod: 'getWarehouses',
     methodProperties: {
-      CityName: 'запоріжжя',
+      CityName: `${city}`,
       Limit: '20',
       Page: '1',
+      Language: 'UA',
+    },
+  };
+  try {
+    const { data } = await backend.post('', options);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getOficeListInfo = async (city, num = 1) => {
+  const options = {
+    apiKey: 'fcad54a446f54015e23edf4c93e5b3a4',
+    modelName: 'Address',
+    calledMethod: 'getWarehouses',
+    methodProperties: {
+      CityName: `${city}`,
+      Limit: '20',
+      Page: `${num}`,
       Language: 'UA',
     },
   };

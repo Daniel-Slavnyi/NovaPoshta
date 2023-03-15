@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import {
   AppBar,
@@ -15,14 +17,13 @@ import {
   Tooltip,
   Badge,
 } from '@mui/material';
-
-import DrawerEl from 'components/Drawer/DrawerEl';
-
 import EmailIcon from '@mui/icons-material/Email';
 import MenuIcon from '@mui/icons-material/Menu';
 import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
+
 import { getNumOfTTN } from 'redux/product/product-selector';
-import { useSelector } from 'react-redux';
+import DrawerEl from 'components/Drawer/DrawerEl';
+import LanguageTogle from 'components/LanguageTogle/LanguageTogle';
 
 const pages = [
   { name: 'Home', link: '/' },
@@ -35,10 +36,12 @@ function ResponsiveAppBar() {
   const [drawOpen, setDrawOpen] = useState(false);
 
   const numOfTtn = useSelector(getNumOfTTN);
+  const { t } = useTranslation();
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = () => {
     setDrawOpen(true);
   };
@@ -73,7 +76,6 @@ function ResponsiveAppBar() {
           >
             NOVA POSHTA
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -110,12 +112,14 @@ function ResponsiveAppBar() {
                   to={page.link}
                   onClick={handleCloseNavMenu}
                 >
-                  <Typography textAlign="center">{page.name}</Typography>
+                  <Typography textAlign="center">{t(page.name)}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <EmailIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <EmailIcon
+            sx={{ display: { xs: 'none', sm: 'flex', md: 'none' }, mr: 1 }}
+          />
           <Typography
             variant="h5"
             noWrap
@@ -123,7 +127,7 @@ function ResponsiveAppBar() {
             href=""
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              display: { xs: 'none', sm: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -144,19 +148,26 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page.name}
+                {t(page.name)}
               </Button>
             ))}
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Badge color="primary" badgeContent={numOfTtn.length}>
-                  <HistoryToggleOffIcon fontSize="large" htmlColor="white" />
-                </Badge>
-              </IconButton>
-            </Tooltip>
+            <Box
+              sx={{
+                display: 'flex',
+                gap: 3,
+              }}
+            >
+              <LanguageTogle />
+              <Tooltip title="Open history">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Badge color="primary" badgeContent={numOfTtn?.length}>
+                    <HistoryToggleOffIcon fontSize="large" htmlColor="white" />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+            </Box>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -180,7 +191,7 @@ function ResponsiveAppBar() {
                     component={NavLink}
                     to={page.link}
                   >
-                    {page.name}
+                    {t(page.name)}
                   </Typography>
                 </MenuItem>
               ))}
